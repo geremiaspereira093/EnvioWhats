@@ -4,7 +4,8 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls,ShellApi;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls,ShellApi, Data.DB,
+  Datasnap.DBClient, Data.Win.ADODB, Vcl.ExtCtrls, Vcl.Imaging.jpeg;
 
 type
   TFormWhats = class(TForm)
@@ -13,8 +14,11 @@ type
     Label2: TLabel;
     BtnEnviar: TButton;
     OpenDialog1: TOpenDialog;
+    BtnAddImagem: TButton;
+    Img: TImage;
     procedure BtnEnviarClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure BtnAddImagemClick(Sender: TObject);
   private
     { Private declarations }
     procedure LimpaDados;
@@ -29,6 +33,15 @@ implementation
 
 {$R *.dfm}
 
+procedure TFormWhats.BtnAddImagemClick(Sender: TObject);
+var
+	Caminho: String;
+begin
+	OpenDialog1.Execute();
+	Caminho :=  OpenDialog1.FileName;
+  Img.Picture.LoadFromFile(Caminho);
+end;
+
 procedure TFormWhats.BtnEnviarClick(Sender: TObject);
 const
 	Link1: String = 'https://web.whatsapp.com/send?phone=';
@@ -39,10 +52,18 @@ const
   Titulo: String = 'Produtos;Quantidade';
 var
 	Resultado: String;
-  Caminho : String;
+  Arquivo: TPicture;
+  Cotacao: String;
+  Retorno: String;
 begin
-	Resultado := Link1 + QuebraLinha + EdtNumero.Text + QuebraLinha +  Link2 + QuebraLinha + Cabecalho +
-  QuebraLinha + Titulo + QuebraLinha + Traco +  QuebraLinha + MemoText.Lines.Text + QuebraLinha + Traco;
+	Cotacao := 'https://cotacao.desoft7.com.br/?B45387D80CB125C618BFBBA0E52C2077D675E86093B92DBC68E979A2EF1C150B0D';
+
+	Retorno:= OpenDialog1.FileName;
+
+	Resultado := Link1 + QuebraLinha + '55' + EdtNumero.Text + QuebraLinha +  Link2 + QuebraLinha + Cabecalho +
+  QuebraLinha + Titulo + QuebraLinha + Traco +  QuebraLinha + MemoText.Lines.Text + QuebraLinha +Cotacao+ QuebraLinha+
+  Traco + QuebraLinha + Pchar(Retorno);
+
   ShowMessage(Resultado);
 
 	if ( ( EdtNumero.Text = '' ) or ( MemoText.Lines.Text = '' ) ) then
@@ -51,7 +72,8 @@ begin
     abort
    end;
 
-	ShellExecute(Handle,'open',Pchar(Resultado),nil,nil, SW_SHOWMAXIMIZED);
+	ShellExecute(Handle,'print',Pchar(Retorno),nil,nil, SW_SHOWMAXIMIZED);
+
   LimpaDados;
 end;
 
