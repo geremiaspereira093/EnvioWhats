@@ -5,7 +5,7 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls,ShellApi, Data.DB,
-  Datasnap.DBClient, Data.Win.ADODB, Vcl.ExtCtrls, Vcl.Imaging.jpeg;
+  Datasnap.DBClient, Data.Win.ADODB, Vcl.ExtCtrls, Vcl.Imaging.jpeg, NetEncoding;
 
 type
   TFormWhats = class(TForm)
@@ -39,7 +39,7 @@ var
 begin
 	OpenDialog1.Execute();
 	Caminho :=  OpenDialog1.FileName;
-  Img.Picture.LoadFromFile(Caminho);
+//  Img.Picture.LoadFromFile(Caminho);
 end;
 
 procedure TFormWhats.BtnEnviarClick(Sender: TObject);
@@ -52,17 +52,27 @@ const
   Titulo: String = 'Produtos;Quantidade';
 var
 	Resultado: String;
-  Arquivo: TPicture;
+  Arquivo: String;
   Cotacao: String;
   Retorno: String;
+	Memoria : TMemoryStream;
+  Base64: TBase64Encoding;
 begin
 	Cotacao := 'https://cotacao.desoft7.com.br/?B45387D80CB125C618BFBBA0E52C2077D675E86093B92DBC68E979A2EF1C150B0D';
+  Memoria := TMemoryStream.Create;
+  Base64 := TBase64Encoding.Create;
+  try
+  	Memoria.LoadFromFile(OpenDialog1.FileName);
+    Arquivo := Base64.EncodeBytesToString(Memoria.Memory,Memoria.Size);
+  finally
+  	Memoria.Free;
+    Base64.Free;
+  end;
 
-	Retorno:= OpenDialog1.FileName;
 
 	Resultado := Link1 + QuebraLinha + '55' + EdtNumero.Text + QuebraLinha +  Link2 + QuebraLinha + Cabecalho +
   QuebraLinha + Titulo + QuebraLinha + Traco +  QuebraLinha + MemoText.Lines.Text + QuebraLinha +Cotacao+ QuebraLinha+
-  Traco + QuebraLinha + Pchar(Retorno);
+  Traco + QuebraLinha +  Pchar(Arquivo);
 
   ShowMessage(Resultado);
 
@@ -72,7 +82,7 @@ begin
     abort
    end;
 
-	ShellExecute(Handle,'print',Pchar(Retorno),nil,nil, SW_SHOWMAXIMIZED);
+	ShellExecute(Handle,'open',Pchar(Resultado),nil,nil, SW_SHOWMAXIMIZED);
 
   LimpaDados;
 end;
