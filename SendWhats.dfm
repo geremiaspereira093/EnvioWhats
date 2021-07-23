@@ -16203,7 +16203,7 @@ object FormWhats: TFormWhats
     OnClick = BtnAddImagemClick
   end
   object OpenDialog1: TOpenDialog
-    Left = 80
-    Top = 65521
+    Left = 145
+    Top = 30
   end
 end
