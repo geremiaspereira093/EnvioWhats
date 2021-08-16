@@ -2,8 +2,8 @@
 <BorlandProject>
 	<Transactions>
     <Transaction>2021/07/06 10:05:26.000.674,=C:\Users\Programacao04\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
-    <Transaction>2021/07/06 10:15:08.000.250,C:\Users\Programacao04\Documents\Embarcadero\Studio\Projects\Unit1.dfm=C:\Users\Programacao04\Desktop\EnvioWhatsapp\SendWhats.dfm</Transaction>
-    <Transaction>2021/07/06 10:15:08.000.250,C:\Users\Programacao04\Documents\Embarcadero\Studio\Projects\Unit1.pas=C:\Users\Programacao04\Desktop\EnvioWhatsapp\SendWhats.pas</Transaction>
-    <Transaction>2021/07/06 10:15:44.000.489,C:\Users\Programacao04\Documents\Embarcadero\Studio\Projects\Project1.dproj=C:\Users\Programacao04\Desktop\EnvioWhatsapp\EnvioWhats.dproj</Transaction>
+    <Transaction>2021/07/06 10:15:08.000.250,C:\Users\Programacao04\Desktop\EnvioWhatsapp\SendWhats.pas=C:\Users\Programacao04\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2021/07/06 10:15:08.000.250,C:\Users\Programacao04\Desktop\EnvioWhatsapp\SendWhats.dfm=C:\Users\Programacao04\Documents\Embarcadero\Studio\Projects\Unit1.dfm</Transaction>
+    <Transaction>2021/07/06 10:15:44.000.489,C:\Users\Programacao04\Desktop\EnvioWhatsapp\EnvioWhats.dproj=C:\Users\Programacao04\Documents\Embarcadero\Studio\Projects\Project1.dproj</Transaction>
   </Transactions>
 </BorlandProject>
